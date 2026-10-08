@@ -1,0 +1,24 @@
+# Paper server in Docker, using server files in ./data (restore a backup there first).
+# Settings come from .env. Start: docker compose up -d   Console: docker compose attach mc  (detach: Ctrl-P Ctrl-Q)
+services:
+  mc:
+    image: itzg/minecraft-server:latest
+    container_name: shadowrealm-mc
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    ports:
+      - "25565:25565/tcp"   # Java
+      - "19132:19132/udp"   # Bedrock (Geyser)
+    environment:
+      EULA: "TRUE"
+      TYPE: PAPER
+      VERSION: ${MC_VERSION}        # latest Paper build for this version is fetched on start
+      MEMORY: ${MEMORY:-2G}
+      USE_AIKAR_FLAGS: "true"
+      TZ: ${TZ:-UTC}
+      UID: 1000
+      GID: 1000
+    volumes:
+      - ./data:/data
+    stop_grace_period: 60s
