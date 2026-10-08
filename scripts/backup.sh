@@ -42,11 +42,12 @@ else
 fi
 
 # Step 2: pack the server folder into a dated .tar.gz (about 20s).
-# Skips cache, libraries and versions; Paper re-downloads those on startup.
+# Skips cache, libraries and versions (Paper re-downloads those on startup)
+# and paper-server.jar.old (the rollback copy left by update-paper.sh).
 ARCHIVE="$BACKUP_DIR/shadowrealm-$(date +%Y-%m-%d-%H%M).tar.gz"
 echo "Creating $ARCHIVE..."
 sudo -u "$MC_USER" mkdir -p "$BACKUP_DIR"
-if ! tar -czf "$ARCHIVE" -C "$SERVER_DIR" --exclude=./cache --exclude=./libraries --exclude=./versions . ; then
+if ! tar -czf "$ARCHIVE" -C "$SERVER_DIR" --exclude=./cache --exclude=./libraries --exclude=./versions --exclude=./paper-server.jar.old . ; then
   echo "tar failed!"
   if [[ $RUNNING == yes ]]; then console "save-on"; fi
   exit 1

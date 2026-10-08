@@ -13,7 +13,7 @@ sudo ./scripts/backup.sh
 Takes about 3 minutes. Steps:
 
 1. **Pause autosave:** `save-off` + `save-all flush` through the console, so files don't change mid-copy. Skipped if the server is stopped.
-2. **Archive:** writes `/home/minecraft/backups/shadowrealm-YYYY-MM-DD-HHMM.tar.gz` (about 260 MB). Skips `cache/`, `libraries/` and `versions/`, which Paper re-downloads.
+2. **Archive:** writes `/home/minecraft/backups/shadowrealm-YYYY-MM-DD-HHMM.tar.gz` (about 260 MB). Skips `cache/`, `libraries/` and `versions/` (Paper re-downloads them) and `paper-server.jar.old`.
 3. **Resume autosave:** `save-on`.
 4. **Check:** the archive is readable and contains `shadowrealm/level.dat`.
 5. **Upload:** to `Shadowrealm Backups` on Proton Drive.
